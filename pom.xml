@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>com.sander.fresco</groupId>
 	<artifactId>sander-fresco-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>Sander Fresco Service</name>
 	<description>Devops Sander Fresco Service Project</description>
 	<url/>
