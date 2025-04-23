@@ -10,4 +10,14 @@ public class SanderFrescoServiceApplication {
 		SpringApplication.run(SanderFrescoServiceApplication.class, args);
 	}
 
+	@GetMapping("/home")
+public List<Student> getAllStudents() {
+ return "welcome on home page";
+}
+
+	@GetMapping("/")
+public List<Student> getAllStudents() {
+ return "Application is UP";
+}
+
 }
