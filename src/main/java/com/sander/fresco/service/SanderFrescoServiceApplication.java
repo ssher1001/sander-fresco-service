@@ -11,12 +11,12 @@ public class SanderFrescoServiceApplication {
 	}
 
 	@GetMapping("/home")
-public List<Student> getAllStudents() {
+public String getAllStudents() {
  return "welcome on home page";
 }
 
 	@GetMapping("/")
-public List<Student> getAllStudents() {
+public String getAllStudents() {
  return "Application is UP";
 }
 
