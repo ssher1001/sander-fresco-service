@@ -16,7 +16,7 @@ public String getAllStudents() {
 }
 
 	@GetMapping("/")
-public String getAllStudents() {
+public String getAllStudentsss() {
  return "Application is UP";
 }
 
