@@ -9,6 +9,8 @@ pipeline {
     environment {
         IMAGE_NAME = 'sumit193/sander-fresco-service'
         IMAGE_TAG = 'latest'
+       SONAR_SCANNER_HOME = tool 'SonarScanner' // Match the name from Global Tool Config
+
     }
 
     stages {
@@ -28,7 +30,15 @@ pipeline {
         stage('Code Review') {
             steps {
                 echo 'Code Review'
-                // Add any code scanning tools here later
+                    withSonarQubeEnv('SonarQube_server') { // Match the name from Configure System
+                    bat "${SONAR_SCANNER_HOME}\\bin\\sonar-scanner"            }
+        }
+
+            stage('Quality Gate') {
+            steps {
+                timeout(time: 1, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
 
@@ -48,6 +58,9 @@ pipeline {
                 bat "docker build -t %IMAGE_NAME%:%IMAGE_TAG% ."
             }
         }
+
+            
+    
 
         stage('Push Docker Image') {
             steps {
