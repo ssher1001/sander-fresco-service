@@ -67,10 +67,10 @@ pipeline {
             steps {
                 echo "Logging into Docker Hub and pushing image..."
 
-                withCredentials([usernamePassword(credentialsId: 'my-docker-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
-                    bat(script: "docker push %IMAGE_NAME%:%IMAGE_TAG%", returnStatus: true)
-                }
+                //withCredentials([usernamePassword(credentialsId: 'my-docker-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                   // bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
+                   // bat(script: "docker push %IMAGE_NAME%:%IMAGE_TAG%", returnStatus: true)
+               // }
 
                 echo "Docker image push complete."
             }
