@@ -33,6 +33,7 @@ pipeline {
                     withSonarQubeEnv('SonarQube_server') { // Match the name from Configure System
                     bat "${SONAR_SCANNER_HOME}\\bin\\sonar-scanner"            }
         }
+        }
 
             stage('Quality Gate') {
             steps {
