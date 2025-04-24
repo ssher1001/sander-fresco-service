@@ -9,7 +9,7 @@ pipeline {
     environment {
         IMAGE_NAME = 'sumit193/sander-fresco-service'
         IMAGE_TAG = 'latest'
-       SONAR_SCANNER_HOME = tool 'SonarScanner' // Match the name from Global Tool Config
+       SONAR_SCANNER_HOME = tool 'sonarqube' // Match the name from Global Tool Config
 
     }
 
