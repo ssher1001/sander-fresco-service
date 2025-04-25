@@ -82,8 +82,8 @@ pipeline {
         echo "Running Docker image on container 'appcontainer'..."
 
         // Stop and remove existing container (if any)
-        bat 'docker stop appcontainer || echo "Container appcontainer not running"'
-        bat 'docker rm appcontainer || echo "Container appcontainer not found"'
+        //bat 'docker stop appcontainer || echo "Container appcontainer not running"'
+        //bat 'docker rm appcontainer || echo "Container appcontainer not found"'
 
         // Run the container with port mapping (host:container)
         bat "docker run -d -p 8081:8080 --name appcontainer %IMAGE_NAME%:%IMAGE_TAG%"
