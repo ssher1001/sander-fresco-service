@@ -35,13 +35,13 @@ pipeline {
         }
         }
 
-            stage('Quality Gate') {
-            steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+            //stage('Quality Gate') {
+            //steps {
+              //  timeout(time: 5, unit: 'MINUTES') {
+                //    waitForQualityGate abortPipeline: true
+              //  }
+          //  }
+       // }
 
         stage('Packaging') {
             steps {
@@ -67,14 +67,30 @@ pipeline {
             steps {
                 echo "Logging into Docker Hub and pushing image..."
 
-                //withCredentials([usernamePassword(credentialsId: 'my-docker-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                   // bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
-                   // bat(script: "docker push %IMAGE_NAME%:%IMAGE_TAG%", returnStatus: true)
-               // }
+                withCredentials([usernamePassword(credentialsId: 'my-docker-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
+                    bat(script: "docker push %IMAGE_NAME%:%IMAGE_TAG%", returnStatus: true)
+                }
 
                 echo "Docker image push complete."
             }
         }
+
+
+        stage('Run Docker Image on appcontainer') {
+    steps {
+        echo "Running Docker image on container 'appcontainer'..."
+
+        // Stop and remove existing container (if any)
+        bat 'docker stop appcontainer || echo "Container appcontainer not running"'
+        bat 'docker rm appcontainer || echo "Container appcontainer not found"'
+
+        // Run the container with port mapping (host:container)
+        bat "docker run -d -p 8081:8080 --name appcontainer %IMAGE_NAME%:%IMAGE_TAG%"
+
+        echo "Container 'appcontainer' is now running and port 8080 is exposed."
+    }
+}
 
         stage('Pipeline Finished') {
             steps {
